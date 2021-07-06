@@ -22,25 +22,25 @@
       <div class="simon__board">
         <div
           class="button"
-          :class="{ highlight: hlGreen }"
+          :class="{ highlight: activeGreen }"
           id="green"
           @click="input(1)"
         ></div>
         <div
           class="button"
-          :class="{ highlight: hlRed }"
+          :class="{ highlight: activeRed }"
           id="red"
           @click="input(2)"
         ></div>
         <div
           class="button"
-          :class="{ highlight: hlYellow }"
+          :class="{ highlight: activeYellow }"
           id="yellow"
           @click="input(3)"
         ></div>
         <div
           class="button"
-          :class="{ highlight: hlBlue }"
+          :class="{ highlight: activeBlue }"
           id="blue"
           @click="input(4)"
         ></div>
@@ -75,13 +75,12 @@ export default {
       series: [], // array of correct answers
       playingSeries: false,
       userInput: [],
-      hlRed: false,
-      hlGreen: false,
-      hlYellow: false,
-      hlBlue: false,
+      activeRed: false,
+      activeGreen: false,
+      activeYellow: false,
+      activeBlue: false,
       allowInput: false,
       showError: false,
-      showWin: false,
     };
   },
   computed: {
@@ -101,10 +100,10 @@ export default {
       this.playingSeries = false;
       this.showError = false;
       this.showWin = false;
-      this.hlGreen = false;
-      this.hlRed = false;
-      this.hlYellow = false;
-      this.hlBlue = false;
+      this.activeGreen = false;
+      this.activeRed = false;
+      this.activeYellow = false;
+      this.activeBlue = false;
     },
     input(tone) {
       if (!this.allowInput) return;
@@ -180,10 +179,10 @@ export default {
       this.playingSeries = false;
     },
     clearHighlights() {
-      this.hlGreen = false;
-      this.hlRed = false;
-      this.hlYellow = false;
-      this.hlBlue = false;
+      this.activeGreen = false;
+      this.activeRed = false;
+      this.activeYellow = false;
+      this.activeBlue = false;
     },
     // Plays the tone & highlights the color
     playTone(tone) {
@@ -192,28 +191,28 @@ export default {
           this.$refs.sound1.pause();
           this.$refs.sound1.currentTime = 0;
           this.$refs.sound1.play();
-          this.hlGreen = true;
+          this.activeGreen = true;
           break;
         case 2:
           this.$refs.sound2.pause();
           this.$refs.sound2.currentTime = 0;
           this.$refs.sound2.play();
-          this.hlRed = true;
+          this.activeRed = true;
           break;
         case 3:
           this.$refs.sound3.pause();
           this.$refs.sound3.currentTime = 0;
           this.$refs.sound3.play();
-          this.hlYellow = true;
+          this.activeYellow = true;
           break;
         case 4:
           this.$refs.sound4.pause();
           this.$refs.sound4.currentTime = 0;
           this.$refs.sound4.play();
-          this.hlBlue = true;
+          this.activeBlue = true;
           break;
       }
-      setTimeout(this.clearHighlights, 750);
+      setTimeout(this.clearHighlights, 300);
     },
     randomTone() {
       return Math.floor(Math.random() * 4) + 1;
@@ -268,6 +267,9 @@ export default {
 }
 input[type="radio"] {
   margin-right: 8px;
+}
+input[type="radio"] + label {
+  cursor: pointer;
 }
 .start-btn {
   cursor: pointer;
