@@ -1,4 +1,4 @@
-# 21.07.06simon
+# 21.07.06simon https://htwwth.github.io/simon-game-vue/
 
 ## Project setup
 ```
